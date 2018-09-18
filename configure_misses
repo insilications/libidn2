@@ -1,3 +1,6 @@
 Configure miss: libunistring
 Configure miss: GTKDOC_DEPS
 Configure miss: whether -Wno-missing-field-initializers is needed
+Configure miss: libunistring
+Configure miss: GTKDOC_DEPS
+Configure miss: whether -Wno-missing-field-initializers is needed
