@@ -4,7 +4,7 @@
 #
 Name     : libidn2
 Version  : 2.0.5
-Release  : 2
+Release  : 3
 URL      : http://mirrors.kernel.org/gnu/libidn/libidn2-2.0.5.tar.gz
 Source0  : http://mirrors.kernel.org/gnu/libidn/libidn2-2.0.5.tar.gz
 Summary  : Library implementing IDNA2008 and TR46
