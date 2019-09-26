@@ -4,17 +4,17 @@
 #
 Name     : libidn2
 Version  : 2.0.5
-Release  : 3
+Release  : 4
 URL      : http://mirrors.kernel.org/gnu/libidn/libidn2-2.0.5.tar.gz
 Source0  : http://mirrors.kernel.org/gnu/libidn/libidn2-2.0.5.tar.gz
 Summary  : Library implementing IDNA2008 and TR46
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 LGPL-3.0 Unicode-TOU
-Requires: libidn2-bin
-Requires: libidn2-lib
-Requires: libidn2-license
-Requires: libidn2-locales
-Requires: libidn2-man
+Requires: libidn2-bin = %{version}-%{release}
+Requires: libidn2-lib = %{version}-%{release}
+Requires: libidn2-license = %{version}-%{release}
+Requires: libidn2-locales = %{version}-%{release}
+Requires: libidn2-man = %{version}-%{release}
 BuildRequires : docbook-xml
 BuildRequires : gcc-dev32
 BuildRequires : gcc-libgcc32
@@ -35,7 +35,6 @@ BuildRequires : pkg-config
 Summary: bin components for the libidn2 package.
 Group: Binaries
 Requires: libidn2-license = %{version}-%{release}
-Requires: libidn2-man = %{version}-%{release}
 
 %description bin
 bin components for the libidn2 package.
@@ -47,6 +46,7 @@ Group: Development
 Requires: libidn2-lib = %{version}-%{release}
 Requires: libidn2-bin = %{version}-%{release}
 Provides: libidn2-devel = %{version}-%{release}
+Requires: libidn2 = %{version}-%{release}
 
 %description dev
 dev components for the libidn2 package.
@@ -124,36 +124,45 @@ popd
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1537301267
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1569526157
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
-export CFLAGS="$CFLAGS -m32"
-export CXXFLAGS="$CXXFLAGS -m32"
-export LDFLAGS="$LDFLAGS -m32"
+export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 %configure --disable-static    --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 cd ../build32;
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1537301267
+export SOURCE_DATE_EPOCH=1569526157
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/libidn2
-cp COPYING %{buildroot}/usr/share/doc/libidn2/COPYING
-cp COPYING.LESSERv3 %{buildroot}/usr/share/doc/libidn2/COPYING.LESSERv3
-cp COPYING.unicode %{buildroot}/usr/share/doc/libidn2/COPYING.unicode
-cp COPYINGv2 %{buildroot}/usr/share/doc/libidn2/COPYINGv2
+mkdir -p %{buildroot}/usr/share/package-licenses/libidn2
+cp COPYING %{buildroot}/usr/share/package-licenses/libidn2/COPYING
+cp COPYING.LESSERv3 %{buildroot}/usr/share/package-licenses/libidn2/COPYING.LESSERv3
+cp COPYING.unicode %{buildroot}/usr/share/package-licenses/libidn2/COPYING.unicode
+cp COPYINGv2 %{buildroot}/usr/share/package-licenses/libidn2/COPYINGv2
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -175,7 +184,7 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/idn2.h
 /usr/lib64/libidn2.so
 /usr/lib64/pkgconfig/libidn2.pc
 /usr/share/man/man3/idn2_check_version.3
@@ -231,14 +240,14 @@ popd
 /usr/lib32/libidn2.so.0.3.4
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/libidn2/COPYING
-/usr/share/doc/libidn2/COPYING.LESSERv3
-/usr/share/doc/libidn2/COPYING.unicode
-/usr/share/doc/libidn2/COPYINGv2
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/libidn2/COPYING
+/usr/share/package-licenses/libidn2/COPYING.LESSERv3
+/usr/share/package-licenses/libidn2/COPYING.unicode
+/usr/share/package-licenses/libidn2/COPYINGv2
 
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man1/idn2.1
 
 %files locales -f libidn2.lang
