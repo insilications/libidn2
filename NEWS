@@ -1,6 +1,69 @@
 Libidn2 NEWS -- History of user-visible changes.                -*- outline -*-
 Copyright (C) 2011-2017 Simon Josefsson
+Copyright (C) 2018-2019 Tim Ruehsen
 See the end for copying conditions.
+
+* Version 2.2.0 (released 2019-05-23)
+
+** Perform A-Label roundtrip for lookup functions by default
+
+** Stricter check of input to punycode decoder
+
+** Fix punycode decoding with no ASCII chars but given delimiter
+
+** Fix 'idn2 --no-tr64' (was a no-op)
+
+** Allow _ as a basic code point in domain labels
+
+** Fail building documentatino if 'ronn' isn't installed
+
+** git tag changed to reflect https://semver.org/
+
+
+* Version 2.1.1 (released 2019-02-08)
+
+** Revert SONAME bump from release 2.1.0
+
+** Fix NULL dereference in idn2_register_u8() and idn2_register_ul()
+
+** Fix free of random value in idn2_to_ascii_4i()
+
+** Improved fuzzer (which found the above issues)
+
+** Fix printf() crash in test-lookup.c on Solaris
+
+** Check for valid unicode input in punycode encoder
+
+** Avoid excessive CPU usage in punycode encoding with
+   large inputs
+
+** Deprecate idn2_to_ascii_4i() in favor of idn2_to_ascii_4i2()
+
+** Restrict output length of idn2_to_ascii_4i() to 63 bytes
+
+
+* Version 2.1.0 (released 2019-01-04)
+
+** Two exposed functions are no longer exposed:
+   _idn2_punycode_encode() and _idn2_punycode_decode() which were
+   meant to be used internally only. The output needs additional
+   checks to be used safely.
+   This is the reason to for the SONAME bump, just in case.
+
+** Fix label length check for idn2_register_u8()
+
+** Remove compiler warnings
+
+** Use gnulib-python tool for bootstrapping if possible
+
+** Improve build system (several small issues)
+
+** Add missing error messages to idn2_strerror_name()
+
+** Improve docs and remove typos
+
+** Update gnulib
+
 
 * Version 2.0.5 (released 2018-05-18)
 
@@ -179,7 +242,7 @@ Reported by Dagobert Michelsen <dam@opencsw.org>.
 * Version 0.9 (released 2013-07-23) [alpha]
 
 ** Fix broken IANA link.
-Apparently IANA does not provide persistant URLs to their registries.
+Apparently IANA does not provide persistent URLs to their registries.
 
 ** Fix automake bootstrap issue.
 

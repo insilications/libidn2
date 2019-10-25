@@ -1,3 +1,344 @@
+2019-05-23 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update NEWS and configure.ac for release
+
+2019-05-23 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix generation of idn2.1 man page file
+
+2019-05-23 Tim Rühsen <tim.ruehsen@gmx.de>
+     Skip sc_prohibit_gnu_make_extensions in 'make syntax-check'
+
+2019-05-23 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix some gtk-doc issues
+
+2019-05-23 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update gnulib
+
+2019-05-13 Tim Rühsen <tim.ruehsen@gmx.de>
+     * doc/gdoc: Fix URL to online manual
+
+2019-04-11 Nikos Mavrogiannopoulos <nmav@gnutls.org>
+     abi-check: simplify ABI comparison using libabigail tools
+     
+     These have output ABI format compatibility and that means we can
+     take snapshots to test ABI against. We also hard-code explicitly
+     the SONAME version to ensure no accidental SONAME bumps happen.
+     
+     Signed-off-by: Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+2019-04-11 Nikos Mavrogiannopoulos <nmav@gnutls.org>
+     .gitlab-ci.yml: add config.log in artifacts
+     
+     Signed-off-by: Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+2019-04-11 Nikos Mavrogiannopoulos <nmav@gnutls.org>
+     .gitlab-ci.yml: fedora: moved to f29
+     
+     Signed-off-by: Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+2019-04-11 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix strncasecmp conflicts
+
+2019-04-11 Tim Rühsen <tim.ruehsen@gmx.de>
+     Add test for round-trip failure
+
+2019-04-11 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix lookup round-trip check
+
+2019-04-09 Florian Weimer <fweimer@redhat.com>
+     Add test-glibc, based on API traces from the glibc AI_IDN tests
+     
+     This test should ensure that future libidn2 changes do not break
+     the expectations of the glibc test suite.
+
+2019-04-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Perform A-Label roundtrip for lookup functions by default
+     
+     This adds another check to avoid unexpected results.
+     It was a longstanding FIXME.
+     
+     Thanks to  Jonathan Birch of Microsoft Corporation,
+     Florian Weimer (GNU glibc) and Nikos Mavrogiannopoulos (GnuTLS)
+     for investigation, discussion and testing.
+
+2019-04-10 Nikos Mavrogiannopoulos <nmav@gnutls.org>
+     coverage badge: generate line coverage
+     
+     Previously we were reporting the highest number from the coverage html.
+     We now switch to the first number which is the line coverage.
+     
+     Resolves: #70
+     
+     Signed-off-by: Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+2019-02-24 Tim Rühsen <tim.ruehsen@gmx.de>
+     Stricter check of punycode-decode input
+
+2019-02-24 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix overflow introduced in ce0d453222ca51c056f4f442988710eb0b696365
+
+2019-02-23 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix decoding with no ASCII chars but given delimiter
+     
+     Reported-by: Florian Weimer
+
+2019-02-20 Tim Rühsen <tim.ruehsen@gmx.de>
+     idn2: Respect --no-tr46 (was a no-op)
+
+2019-02-20 Tim Rühsen <tim.ruehsen@gmx.de>
+     Allow _ as basic code point in domain labels
+
+2019-02-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fail make if 'ronn' doesn't existi when building docs
+
+2019-02-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update contrib/release to create -latest files
+
+2019-02-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Revert "Remove redundant input check in idn2_to_ascii_4i()"
+     
+     This reverts commit 144f4ba6f8fe899fa15516524a495c9175dff6cb.
+     
+     Undoing a stupid failure...
+
+2019-01-26 Tim Rühsen <tim.ruehsen@gmx.de>
+     Remove redundant input check in idn2_to_ascii_4i()
+
+2019-02-08 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update NEWS for release
+
+2019-01-29 Tim Rühsen <tim.ruehsen@gmx.de>
+     Adjust green of fuzz-coverage badge
+
+2019-01-29 Tim Rühsen <tim.ruehsen@gmx.de>
+     Create pages via CI for master only
+
+2019-01-29 Tim Rühsen <tim.ruehsen@gmx.de>
+     Create SVG badge for fuzz coverage
+
+2019-01-28 Tim Rühsen <tim.ruehsen@gmx.de>
+     Don't export _idn2_* symbols for non-ld linkers
+
+2019-01-28 Tim Rühsen <tim.ruehsen@gmx.de>
+     register_fuzzer: Add NULL input/output tests
+
+2019-01-28 Tim Rühsen <tim.ruehsen@gmx.de>
+     ascii_8z_fuzzer: Add NULL input/output tests
+
+2019-01-28 Tim Rühsen <tim.ruehsen@gmx.de>
+     unicode_8z8z_fuzzer: Add NULL input/output tests
+
+2019-01-25 Tim Rühsen <tim.ruehsen@gmx.de>
+     Revert SONAME bump
+     
+     See discussion at https://gitlab.com/libidn/libidn2/merge_requests/69
+     and at https://gitlab.com/libidn/libidn2/issues/63
+
+2019-01-25 Tim Rühsen <tim.ruehsen@gmx.de>
+     Cleanup tests/test-lookup.c
+
+2019-01-25 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fuzz error code
+
+2019-01-22 Tim Rühsen <tim.ruehsen@gmx.de>
+     tests/test-lookup.c: Fix printf() crash on Solaris
+
+2019-01-22 Tim Rühsen <tim.ruehsen@gmx.de>
+     Punycode encode: Check input for valid unicode
+
+2019-01-22 Tim Rühsen <tim.ruehsen@gmx.de>
+     fuzz/main.c: Avoid alloca() / VLA / heap allocation
+
+2019-01-20 Tim Rühsen <tim.ruehsen@gmx.de>
+     Avoid excessive CPU usage with large inputs to idn2_lookup_u8()
+     
+     The punycode encoding was done on any input sizes, the output length check
+     happended afterwards. Due to the O(N^2) nature of the encoding, this
+     lead to excessive CPU usage on large inputs.
+     This was unneeded because the result was IDN2_TOO_BIG_DOMAIN anyways.
+     
+     It allowed a Denial-Of-Service (DOS) if the calling functions didn't
+     have their own length check. In fact we saw this as timeout issues
+     when fuzzing GnuTLS via OSS-Fuzz.
+     
+     The affected functions are idn2_lookup_u8(), idn2_lookup_ul(),
+     idn2_to_ascii_4i, idn2_to_ascii_4i2(), idn2_to_ascii_4z(),
+     idn2_to_ascii_8z(), idn2_to_ascii_lz().
+     
+     Also the tool 'idn2' is affected in lookup/toASCII mode.
+
+2019-01-20 Tim Rühsen <tim.ruehsen@gmx.de>
+     test-lookup.c: Remove non UTF-8 chars from comment
+
+2019-01-19 Tim Rühsen <tim.ruehsen@gmx.de>
+     README.md: Add fuzzing section [skip ci]
+
+2019-01-19 Tim Rühsen <tim.ruehsen@gmx.de>
+     README.md: Fix several links [skip ci]
+
+2019-01-19 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update oss-fuzz corpora
+
+2019-01-19 Tim Rühsen <tim.ruehsen@gmx.de>
+     run-clang.sh: Fix -I directory
+
+2019-01-12 Tim Rühsen <tim.ruehsen@gmx.de>
+     Use gnulib repo from git.savannah.gnu.org
+
+2019-01-12 Tim Rühsen <tim.ruehsen@gmx.de>
+     Add compiler-suggested function attributes
+
+2019-01-11 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update fuzzer corpora from oss-fuzz
+
+2019-01-10 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix include in lib/tr64map.h
+
+2019-01-10 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix gcc attributes and header guards
+
+2019-01-10 Tim Rühsen <tim.ruehsen@gmx.de>
+     Deprecate idn2_to_ascii_4i(), add idn2_to_ascii_4i2()
+
+2019-01-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Publish fuzzing code coverage, add a reference to README.md
+
+2019-01-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Add fuzzing of version and error functions
+
+2019-01-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Remove overhead from error.c, add missing TR46 values
+
+2019-01-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update fuzz corpora from oss-fuzz
+
+2019-01-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     get_ossfuzz_corpora: Improve download speed
+
+2019-01-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     Add crash reproducer from oss-fuzz
+
+2019-01-09 Tim Rühsen <tim.ruehsen@gmx.de>
+     idn2_to_ascii_4i(): Restrict output length to 63
+
+2019-01-06 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix libidn2_to_ascii_8z_fuzzer for C++
+
+2019-01-05 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update NEWS
+
+2019-01-05 Tim Rühsen <tim.ruehsen@gmx.de>
+     Improve libidn2_to_ascii_8z_fuzzer
+
+2019-01-05 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix free of random (stack) value in idn2_to_ascii_4i()
+
+2019-01-05 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update NEWS
+
+2019-01-05 Tim Rühsen <tim.ruehsen@gmx.de>
+     Add libidn2_register_fuzzer and corpora
+
+2019-01-04 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix version for release
+
+2019-01-04 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update NEWS and configure.ac for release
+
+2019-01-04 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update gnulib
+
+2018-12-28 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix typos found by contrib/spell-checker
+
+2018-12-28 Tim Rühsen <tim.ruehsen@gmx.de>
+     Add contrib/spell-checker
+
+2018-12-21 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix label length check for idn2_register_u8()
+     
+     idn2_register_u8() returned IDN2_TOO_BIG_LABEL even in cases
+     where the a-label was <= 63 characters (but the ulabel was > 63 chars).
+     
+     Reported-by: Mauro Lozano
+     
+     Bug report at https://gitlab.com/libidn/libidn2/issues/60
+
+2018-11-17 Tim Rühsen <tim.ruehsen@gmx.de>
+     bootstrap: Fix if 'python' command isn't found
+
+2018-05-30 Tim Rühsen <tim.ruehsen@gmx.de>
+     Improve CI tarball build
+
+2018-11-15 Tim Rühsen <tim.ruehsen@gmx.de>
+     Test tarball build in CI
+
+2018-06-13 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update gnulib submodule
+
+2018-07-12 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix typo
+
+2018-07-12 Tim Rühsen <tim.ruehsen@gmx.de>
+     Do not expose _idn2_punycode_* functions
+
+2018-07-10 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix typos in docs of lib/lookup.c
+
+2018-07-10 Tim Rühsen <tim.ruehsen@gmx.de>
+     Amend fuzz/ to clang-6.0
+
+2018-07-10 Tim Rühsen <tim.ruehsen@gmx.de>
+     Stricter checks for input and output of punycode_decode()
+
+2018-07-06 Tim Rühsen <tim.ruehsen@gmx.de>
+     Check codepoint validity in punycode_decode()
+     
+     punycode_decode() was able to generate invalid unicode values
+     returned with IDN2_OK. The only affected function was
+     idn2_to_unicode_8z4z().
+     
+     Reported-by: Mike Schiffman (Farsight Security, Inc.)
+
+2018-07-02 Nikos Mavrogiannopoulos <nmav@redhat.com>
+     idn2_to_unicode: clarify that @flags are unused
+     
+     Resolves #55
+
+2018-06-28 Tim Rühsen <tim.ruehsen@gmx.de>
+     Add missing errors in idn2_strerror_name()
+
+2018-06-13 Tim Rühsen <tim.ruehsen@gmx.de>
+     Cleanup .gitignore (fixes CI build)
+
+2018-06-13 Tim Rühsen <tim.ruehsen@gmx.de>
+     Exclude bootstrap in cfg.mk
+
+2018-06-13 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix 'AC_COMPILE_IFELSE was called before AC_USE_SYSTEM_EXTENSIONS'
+
+2018-06-13 Tim Rühsen <tim.ruehsen@gmx.de>
+     Use python gnulib-tool if possible (much faster)
+
+2018-06-13 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix gcc warning 'nested extern'
+
+2018-06-13 Tim Rühsen <tim.ruehsen@gmx.de>
+     Do not remove docs with 'make check'
+     
+     Removing them break tarball builds without developer tools
+     after 'make clean'.
+
+2018-05-30 Tim Rühsen <tim.ruehsen@gmx.de>
+     Use printf's %u instead of %zu for better compatibility
+
+2018-05-30 Tim Rühsen <tim.ruehsen@gmx.de>
+     Makefile.am: Check for .git directory before calling git
+
+2018-05-18 Tim Rühsen <tim.ruehsen@gmx.de>
+     Remove hard-coded gcc warn flag -Wno-missing-field-initializers
+     
+     That flag is not understood by e.g. Solaris cc.
+
 2018-05-18 Tim Rühsen <tim.ruehsen@gmx.de>
      Update release date in NEWS
 
