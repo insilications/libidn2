@@ -1,3 +1,63 @@
+2019-11-14 Tim Rühsen <tim.ruehsen@gmx.de>
+     Fix: Enable test-glibc only on host_os 'linux-gnu' (Fixes #72)
+
+2019-11-14 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update NEWS for release
+
+2019-11-14 Tim Rühsen <tim.ruehsen@gmx.de>
+     Enable test-glibc only on host_os 'linux-gnu' (Fixes #72)
+
+2019-11-14 Tim Rühsen <tim.ruehsen@gmx.de>
+     Prepare for release
+
+2019-10-25 Florian Weimer <fweimer@redhat.com>
+     Turn _idn2_punycode_encode, _idn2_punycode_decode into compat symbols
+     
+     These internal symbols should not be used by applications, but were
+     previously exported.  Contrary to our expectations, outright removal
+     is not possible due to some use in old GNUTLS versions.
+     
+     The aliases are required because internal hidden references turn the
+     target symbol into a hidden symbol.  It would have been possible to
+     preserve the internal API using another __asm__ alias, but this commit
+     renames the call sites instead, for simplicity.
+     
+     The -export-symbols-regex argument in lib/Makefile.am is not adjusted
+     because targets which do not support version scripts probably do not
+     have stringent backwards compatibility requirements.
+     
+     Fixes libidn/libidn2#74.
+
+2019-07-24 Tim Rühsen <tim.ruehsen@gmx.de>
+     Update NEWS for CVE-2019-12290
+
+2019-06-23 Nikos Mavrogiannopoulos <nmav@gnutls.org>
+     NOTES: removed; this file no longer reflects development approach
+     
+     Signed-off-by: Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+2019-06-22 Orivej Desh <orivej@gmx.fr>
+     Update data tables from Unicode 6.3.0 to Unicode 11.0.0
+
+2019-06-22 Orivej Desh <orivej@gmx.fr>
+     Generate data.c from idna-tables-properties.csv
+     
+     This simplifies the generation of data.c and allows to distclean it since that
+     becomes independent from perl.
+     
+     The generated data.c is identical.
+
+2019-06-21 Nikos Mavrogiannopoulos <nmav@redhat.com>
+     doc: updated conversion from libidn instructions
+     
+     This now uses the IDN2_USE_STD3_ASCII_RULES and recommends using
+     the default flags rather than explicitly specify the transitional.
+     
+     Signed-off-by: Nikos Mavrogiannopoulos <nmav@redhat.com>
+
+2019-05-24 Tim Rühsen <tim.ruehsen@gmx.de>
+     Set gnulib-tool's --test_base to gl/tests
+
 2019-05-23 Tim Rühsen <tim.ruehsen@gmx.de>
      Update NEWS and configure.ac for release
 

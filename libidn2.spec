@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x08302DB6A2670428 (tim.ruehsen@gmx.de)
 #
 Name     : libidn2
-Version  : 2.2.0
-Release  : 6
-URL      : http://mirrors.kernel.org/gnu/libidn/libidn2-2.2.0.tar.gz
-Source0  : http://mirrors.kernel.org/gnu/libidn/libidn2-2.2.0.tar.gz
-Source1 : http://mirrors.kernel.org/gnu/libidn/libidn2-2.2.0.tar.gz.sig
+Version  : 2.3.0
+Release  : 7
+URL      : http://mirrors.kernel.org/gnu/libidn/libidn2-2.3.0.tar.gz
+Source0  : http://mirrors.kernel.org/gnu/libidn/libidn2-2.3.0.tar.gz
+Source1 : http://mirrors.kernel.org/gnu/libidn/libidn2-2.3.0.tar.gz.sig
 Summary  : Library implementing IDNA2008 and TR46
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 LGPL-3.0 Unicode-TOU
@@ -29,7 +29,6 @@ BuildRequires : gtk-doc
 BuildRequires : gtk-doc-dev
 BuildRequires : libxslt-bin
 BuildRequires : pkg-config
-BuildRequires : util-linux
 
 %description
 [![build status](https://gitlab.com/libidn/libidn2/badges/master/build.svg)](https://gitlab.com/libidn/libidn2/pipelines)
@@ -130,10 +129,10 @@ man components for the libidn2 package.
 
 
 %prep
-%setup -q -n libidn2-2.2.0
-cd %{_builddir}/libidn2-2.2.0
+%setup -q -n libidn2-2.3.0
+cd %{_builddir}/libidn2-2.3.0
 pushd ..
-cp -a libidn2-2.2.0 build32
+cp -a libidn2-2.3.0 build32
 popd
 
 %build
@@ -141,7 +140,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573789869
+export SOURCE_DATE_EPOCH=1573796474
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -172,13 +171,13 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1573789869
+export SOURCE_DATE_EPOCH=1573796474
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libidn2
-cp %{_builddir}/libidn2-2.2.0/COPYING %{buildroot}/usr/share/package-licenses/libidn2/f134eeebdc065e961a7935729cd6fd8fee3a50f2
-cp %{_builddir}/libidn2-2.2.0/COPYING.LESSERv3 %{buildroot}/usr/share/package-licenses/libidn2/f45ee1c765646813b442ca58de72e20a64a7ddba
-cp %{_builddir}/libidn2-2.2.0/COPYING.unicode %{buildroot}/usr/share/package-licenses/libidn2/33ad3570b2dc646e18e97171233bfceda6f7f088
-cp %{_builddir}/libidn2-2.2.0/COPYINGv2 %{buildroot}/usr/share/package-licenses/libidn2/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/libidn2-2.3.0/COPYING %{buildroot}/usr/share/package-licenses/libidn2/f134eeebdc065e961a7935729cd6fd8fee3a50f2
+cp %{_builddir}/libidn2-2.3.0/COPYING.LESSERv3 %{buildroot}/usr/share/package-licenses/libidn2/f45ee1c765646813b442ca58de72e20a64a7ddba
+cp %{_builddir}/libidn2-2.3.0/COPYING.unicode %{buildroot}/usr/share/package-licenses/libidn2/33ad3570b2dc646e18e97171233bfceda6f7f088
+cp %{_builddir}/libidn2-2.3.0/COPYINGv2 %{buildroot}/usr/share/package-licenses/libidn2/4cc77b90af91e615a64ae04893fdffa7939db84c
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -252,12 +251,12 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libidn2.so.0
-/usr/lib64/libidn2.so.0.3.6
+/usr/lib64/libidn2.so.0.3.7
 
 %files lib32
 %defattr(-,root,root,-)
 /usr/lib32/libidn2.so.0
-/usr/lib32/libidn2.so.0.3.6
+/usr/lib32/libidn2.so.0.3.7
 
 %files license
 %defattr(0644,root,root,0755)
