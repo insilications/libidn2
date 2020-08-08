@@ -1,2 +1,14 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+docbook-xml
+findutils
+gcc-dev32
+gcc-libgcc32
+gcc-libstdc++32
+glibc-dev32
+glibc-libc32
+gtk-doc
+gtk-doc-dev
+libxslt-bin
+pkg-config
+util-linux
