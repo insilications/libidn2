@@ -12,3 +12,7 @@ gtk-doc-dev
 libxslt-bin
 pkg-config
 util-linux
+libunistring-dev
+libunistring-staticdev
+libunistring-dev32
+libunistring-staticdev32
