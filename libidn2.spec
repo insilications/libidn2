@@ -7,7 +7,7 @@
 %define keepstatic 1
 Name     : libidn2
 Version  : 2.3.0
-Release  : 10
+Release  : 11
 URL      : http://mirrors.kernel.org/gnu/libidn/libidn2-2.3.0.tar.gz
 Source0  : http://mirrors.kernel.org/gnu/libidn/libidn2-2.3.0.tar.gz
 Source1  : http://mirrors.kernel.org/gnu/libidn/libidn2-2.3.0.tar.gz.sig
@@ -159,7 +159,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1597277761
+export SOURCE_DATE_EPOCH=1597280757
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -188,7 +188,7 @@ export CXXFLAGS="${CXXFLAGS_GENERATE}"
 export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
- %configure --enable-shared --enable-static
+ %configure --enable-shared --enable-static --enable-ld-version-script
 make  %{?_smp_mflags}
 
 make VERBOSE=1 V=1 %{?_smp_mflags} check
@@ -198,7 +198,7 @@ export CXXFLAGS="${CXXFLAGS_USE}"
 export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
-%configure --enable-shared --enable-static
+%configure --enable-shared --enable-static --enable-ld-version-script
 make  %{?_smp_mflags}
 
 pushd ../build-special/
@@ -255,7 +255,7 @@ export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
 export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
-%configure --enable-shared --enable-static  --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+%configure --enable-shared --enable-static --enable-ld-version-script  --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}  VERBOSE=1 V=1
 popd
 
@@ -271,7 +271,7 @@ cd ../build-special;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1597277761
+export SOURCE_DATE_EPOCH=1597280757
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
