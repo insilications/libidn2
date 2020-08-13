@@ -1,50 +1,46 @@
-From 44213b33b1c3280dece06b8837ddf9f4f1d5e499 Mon Sep 17 00:00:00 2001
+From d155025341f474adad23c7538ce74481e17ab299 Mon Sep 17 00:00:00 2001
 From: insilications <boboniboni@gmail.com>
 Date: Wed, 12 Aug 2020 23:48:30 -0300
 Subject: [PATCH] Fix symver with LTO
 
 ---
- lib/puny_decode.c | 8 ++++----
- lib/puny_encode.c | 8 ++++----
- 2 files changed, 8 insertions(+), 8 deletions(-)
+ lib/puny_decode.c | 7 ++-----
+ lib/puny_encode.c | 7 ++-----
+ 2 files changed, 4 insertions(+), 10 deletions(-)
 
 diff --git a/lib/puny_decode.c b/lib/puny_decode.c
-index bd7b917..543d2a4 100644
+index bd7b917..0cec52e 100644
 --- a/lib/puny_decode.c
 +++ b/lib/puny_decode.c
-@@ -223,10 +223,10 @@ int punycode_decode(
+@@ -223,10 +223,7 @@ int punycode_decode(
  }
  
  /* Create a compatibility symbol if supported.  Hidden references make
 -   the target symbol hidden, hence the alias.  */
 + the* target symbol hidden, hence the alias.  */
  #ifdef HAVE_SYMVER_ALIAS_SUPPORT
- __typeof__ (_idn2_punycode_decode_internal) _idn2_punycode_decode
+-__typeof__ (_idn2_punycode_decode_internal) _idn2_punycode_decode
 -   __attribute__ ((visibility ("default"),
 -                   alias ("_idn2_punycode_decode_internal")));
 -__asm__ (".symver _idn2_punycode_decode, _idn2_punycode_decode@IDN2_0.0.0");
-+__attribute__ ((__symver__ ("_idn2_punycode_decode@IDN2_0.0.0")))
-+__attribute__ ((visibility ("default")))
-+__attribute__ ((alias ("_idn2_punycode_decode_internal")));
++__typeof__ (_idn2_punycode_decode_internal) _idn2_punycode_decode __attribute__ ((__symver__ ("_idn2_punycode_decode@IDN2_0.0.0"))) __attribute__((visibility("default"),externally_visible)) __attribute__ ((alias ("_idn2_punycode_decode_internal")));
  #endif
 diff --git a/lib/puny_encode.c b/lib/puny_encode.c
-index aed105b..49d7081 100644
+index aed105b..879ed1a 100644
 --- a/lib/puny_encode.c
 +++ b/lib/puny_encode.c
-@@ -224,10 +224,10 @@ int punycode_encode(
+@@ -224,10 +224,7 @@ int punycode_encode(
  }
  
  /* Create a compatibility symbol if supported.  Hidden references make
 -   the target symbol hidden, hence the alias.  */
 + the* target symbol hidden, hence the alias.  */
  #ifdef HAVE_SYMVER_ALIAS_SUPPORT
- __typeof__ (_idn2_punycode_encode_internal) _idn2_punycode_encode
+-__typeof__ (_idn2_punycode_encode_internal) _idn2_punycode_encode
 -   __attribute__ ((visibility ("default"),
 -                   alias ("_idn2_punycode_encode_internal")));
 -__asm__ (".symver _idn2_punycode_encode, _idn2_punycode_encode@IDN2_0.0.0");
-+__attribute__ ((__symver__ ("_idn2_punycode_encode@IDN2_0.0.0")))
-+__attribute__ ((visibility ("default")))
-+__attribute__ ((alias ("_idn2_punycode_encode_internal")));
++__typeof__ (_idn2_punycode_encode_internal) _idn2_punycode_encode __attribute__ ((__symver__ ("_idn2_punycode_encode@IDN2_0.0.0"))) __attribute__((visibility("default"),externally_visible)) __attribute__ ((alias ("_idn2_punycode_encode_internal")));
  #endif
 -- 
 2.27.0
