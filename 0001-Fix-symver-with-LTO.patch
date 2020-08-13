@@ -1,4 +1,4 @@
-From d155025341f474adad23c7538ce74481e17ab299 Mon Sep 17 00:00:00 2001
+From a8a33eb23cb29f6a58b299330b1f456c6f2a8009 Mon Sep 17 00:00:00 2001
 From: insilications <boboniboni@gmail.com>
 Date: Wed, 12 Aug 2020 23:48:30 -0300
 Subject: [PATCH] Fix symver with LTO
@@ -9,7 +9,7 @@ Subject: [PATCH] Fix symver with LTO
  2 files changed, 4 insertions(+), 10 deletions(-)
 
 diff --git a/lib/puny_decode.c b/lib/puny_decode.c
-index bd7b917..0cec52e 100644
+index bd7b917..ac92d99 100644
 --- a/lib/puny_decode.c
 +++ b/lib/puny_decode.c
 @@ -223,10 +223,7 @@ int punycode_decode(
@@ -23,10 +23,10 @@ index bd7b917..0cec52e 100644
 -   __attribute__ ((visibility ("default"),
 -                   alias ("_idn2_punycode_decode_internal")));
 -__asm__ (".symver _idn2_punycode_decode, _idn2_punycode_decode@IDN2_0.0.0");
-+__typeof__ (_idn2_punycode_decode_internal) _idn2_punycode_decode __attribute__ ((__symver__ ("_idn2_punycode_decode@IDN2_0.0.0"))) __attribute__((visibility("default"),externally_visible)) __attribute__ ((alias ("_idn2_punycode_decode_internal")));
++__typeof__ (_idn2_punycode_decode_internal) _idn2_punycode_decode __attribute__((visibility("default"),externally_visible)) __attribute__ ((__symver__ ("_idn2_punycode_decode@IDN2_0.0.1"))) __attribute__ ((alias ("_idn2_punycode_decode_internal")));
  #endif
 diff --git a/lib/puny_encode.c b/lib/puny_encode.c
-index aed105b..879ed1a 100644
+index aed105b..97cf964 100644
 --- a/lib/puny_encode.c
 +++ b/lib/puny_encode.c
 @@ -224,10 +224,7 @@ int punycode_encode(
@@ -40,7 +40,7 @@ index aed105b..879ed1a 100644
 -   __attribute__ ((visibility ("default"),
 -                   alias ("_idn2_punycode_encode_internal")));
 -__asm__ (".symver _idn2_punycode_encode, _idn2_punycode_encode@IDN2_0.0.0");
-+__typeof__ (_idn2_punycode_encode_internal) _idn2_punycode_encode __attribute__ ((__symver__ ("_idn2_punycode_encode@IDN2_0.0.0"))) __attribute__((visibility("default"),externally_visible)) __attribute__ ((alias ("_idn2_punycode_encode_internal")));
++__typeof__ (_idn2_punycode_encode_internal) _idn2_punycode_encode __attribute__((visibility("default"),externally_visible)) __attribute__ ((__symver__ ("_idn2_punycode_encode@IDN2_0.0.1"))) __attribute__ ((alias ("_idn2_punycode_encode_internal")));
  #endif
 -- 
 2.27.0
