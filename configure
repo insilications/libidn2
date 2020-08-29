@@ -1,1 +1,1 @@
---enable-shared --enable-static
+--enable-shared --enable-static --disable-doc --disable-gcc-warnings --disable-rpath --disable-silent-rules

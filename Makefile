@@ -1,5 +1,5 @@
 PKG_NAME := libidn2
-URL = http://mirrors.kernel.org/gnu/libidn/libidn2-2.3.0.tar.gz
+URL = https://gitlab.com/libidn/libidn2.git
 ARCHIVES = 
 
 include ../common/Makefile.common

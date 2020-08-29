@@ -16,3 +16,7 @@ libunistring-dev
 libunistring-staticdev
 libunistring-dev32
 libunistring-staticdev32
+gengetopt
+python3
+python3-dev
+rsync
