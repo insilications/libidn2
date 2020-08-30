@@ -4,10 +4,10 @@
 #
 %define keepstatic 1
 Name     : libidn2
-Version  : 2.3.0
-Release  : 18
-URL      : file:///insilications/build/clearlinux/packages/libidn2/libidn2-2.3.0.tar.gz
-Source0  : file:///insilications/build/clearlinux/packages/libidn2/libidn2-2.3.0.tar.gz
+Version  : 20.08.30
+Release  : 19
+URL      : file:///insilications/build/clearlinux/packages/libidn2/libidn2-20.08.30.tar.gz
+Source0  : file:///insilications/build/clearlinux/packages/libidn2/libidn2-20.08.30.tar.gz
 Summary  : Library implementing IDNA2008 and TR46
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 LGPL-2.1
@@ -31,8 +31,6 @@ BuildRequires : libunistring-staticdev
 BuildRequires : libunistring-staticdev32
 BuildRequires : libxslt-bin
 BuildRequires : pkg-config
-BuildRequires : pkgconfig(32glib-2.0)
-BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : python3
 BuildRequires : python3-dev
 BuildRequires : rsync
@@ -135,7 +133,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1598767532
+export SOURCE_DATE_EPOCH=1598770311
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -170,7 +168,7 @@ export LDFLAGS="${LDFLAGS_GENERATE}"
  %configure --enable-shared --enable-static --disable-doc --disable-gcc-warnings --disable-rpath --disable-silent-rules
 make  %{?_smp_mflags}  VERBOSE=1 V=1 LDFLAGS="${LDFLAGS} -Wl,--whole-archive /usr/lib64/libunistring.a -Wl,--no-whole-archive -Wl,--no-whole-archive"
 
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make VERBOSE=1 V=1 LDFLAGS="${LDFLAGS} -Wl,--whole-archive /usr/lib64/libunistring.a -Wl,--no-whole-archive -Wl,--no-whole-archive" %{?_smp_mflags} check
 make clean
 export CFLAGS="${CFLAGS_USE}"
 export CXXFLAGS="${CXXFLAGS_USE}"
@@ -210,7 +208,7 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1598767532
+export SOURCE_DATE_EPOCH=1598770311
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

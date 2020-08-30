@@ -1,5 +1,5 @@
 PKG_NAME := libidn2
-URL = https://gitlab.com/libidn/libidn2.git
+URL = https://github.com/insilications/libidn2-clr.git
 ARCHIVES = 
 
 include ../common/Makefile.common
