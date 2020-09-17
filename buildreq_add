@@ -10,6 +10,7 @@ glibc-libc32
 gtk-doc
 gtk-doc-dev
 libxslt-bin
+libxslt-dev
 pkg-config
 util-linux
 libunistring-dev
