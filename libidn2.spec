@@ -4,10 +4,10 @@
 #
 %define keepstatic 1
 Name     : libidn2
-Version  : 20.08.30
-Release  : 20
-URL      : file:///insilications/build/clearlinux/packages/libidn2/libidn2-20.08.30.tar.gz
-Source0  : file:///insilications/build/clearlinux/packages/libidn2/libidn2-20.08.30.tar.gz
+Version  : 2.3.0
+Release  : 21
+URL      : file:///insilications/build/clearlinux/packages/libidn2/libidn2-2.3.0.tar.gz
+Source0  : file:///insilications/build/clearlinux/packages/libidn2/libidn2-2.3.0.tar.gz
 Summary  : Library implementing IDNA2008 and TR46
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 LGPL-2.1
@@ -30,11 +30,16 @@ BuildRequires : libunistring-dev32
 BuildRequires : libunistring-staticdev
 BuildRequires : libunistring-staticdev32
 BuildRequires : libxslt-bin
+BuildRequires : libxslt-dev
+BuildRequires : libxslt-staticdev
 BuildRequires : pkg-config
 BuildRequires : python3
 BuildRequires : python3-dev
+BuildRequires : python3-staticdev
 BuildRequires : rsync
 BuildRequires : util-linux
+BuildRequires : util-linux-dev
+BuildRequires : util-linux-staticdev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -127,13 +132,16 @@ popd
 
 %build
 ## build_prepend content
+find . -type f -name 'Makefile' -exec sed -i 's:-lunistring\b:-Wl,--whole-archive,--as-needed,/usr/lib64/libunistring.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
 ./bootstrap
+find . -type f -name 'Makefile' -exec sed -i 's:-lunistring\b:-Wl,--whole-archive,--as-needed,/usr/lib64/libunistring.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
 ## build_prepend end
 unset http_proxy
 unset https_proxy
 unset no_proxy
+export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1598770785
+export SOURCE_DATE_EPOCH=1602712231
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -158,17 +166,17 @@ export NM=gcc-nm
 #
 export MAKEFLAGS=%{?_smp_mflags}
 #
-%define _lto_cflags 1
-#%define _lto_cflags %{nil}
+%global _lto_cflags 1
+#global _lto_cflags %{nil}
 #
 # export PATH="/usr/lib64/ccache/bin:$PATH"
 # export CCACHE_NOHASHDIR=1
 # export CCACHE_DIRECT=1
 # export CCACHE_SLOPPINESS=pch_defines,locale,time_macros
-# export CCACHE_DISABLE=1
+export CCACHE_DISABLE=1
 ## altflags_pgo end
 ##
-%define _lto_cflags 1
+%global _lto_cflags 1
 ##
 export CFLAGS="${CFLAGS_GENERATE}"
 export CXXFLAGS="${CXXFLAGS_GENERATE}"
@@ -176,9 +184,9 @@ export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
  %configure --enable-shared --enable-static --disable-doc --disable-gcc-warnings --disable-rpath --disable-silent-rules
-make  %{?_smp_mflags}  VERBOSE=1 V=1 LDFLAGS="${LDFLAGS} -Wl,--whole-archive /usr/lib64/libunistring.a -Wl,--no-whole-archive -Wl,--no-whole-archive"
+make  %{?_smp_mflags} V=1 VERBOSE=1
 
-make VERBOSE=1 V=1 LDFLAGS="${LDFLAGS} -Wl,--whole-archive /usr/lib64/libunistring.a -Wl,--no-whole-archive -Wl,--no-whole-archive" %{?_smp_mflags} check
+make -j1 check V=1 VERBOSE=1 || :
 make clean
 export CFLAGS="${CFLAGS_USE}"
 export CXXFLAGS="${CXXFLAGS_USE}"
@@ -186,11 +194,13 @@ export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
 %configure --enable-shared --enable-static --disable-doc --disable-gcc-warnings --disable-rpath --disable-silent-rules
-make  %{?_smp_mflags}  VERBOSE=1 V=1 LDFLAGS="${LDFLAGS} -Wl,--whole-archive /usr/lib64/libunistring.a -Wl,--no-whole-archive -Wl,--no-whole-archive"
+make  %{?_smp_mflags} V=1 VERBOSE=1
 
 pushd ../build32/
 ## build_prepend content
+find . -type f -name 'Makefile' -exec sed -i 's:-lunistring\b:-Wl,--whole-archive,--as-needed,/usr/lib64/libunistring.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
 ./bootstrap
+find . -type f -name 'Makefile' -exec sed -i 's:-lunistring\b:-Wl,--whole-archive,--as-needed,/usr/lib64/libunistring.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
 ## build_prepend end
 export CFLAGS="-g -O2 -fuse-linker-plugin -pipe"
 export CXXFLAGS="-g -O2 -fuse-linker-plugin -fvisibility-inlines-hidden -pipe"
@@ -208,17 +218,8 @@ export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 make  %{?_smp_mflags}  VERBOSE=1 V=1
 popd
 
-%check
-export LANG=C.UTF-8
-unset http_proxy
-unset https_proxy
-unset no_proxy
-make %{?_smp_mflags} check || :
-cd ../build32;
-make %{?_smp_mflags} check || : || :
-
 %install
-export SOURCE_DATE_EPOCH=1598770785
+export SOURCE_DATE_EPOCH=1602712231
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
