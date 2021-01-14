@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : libidn2
 Version  : 2.3.0
-Release  : 22
+Release  : 23
 URL      : file:///insilications/build/clearlinux/packages/libidn2/libidn2-2.3.0.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/libidn2/libidn2-2.3.0.tar.gz
 Summary  : Library implementing IDNA2008 and TR46
@@ -40,6 +40,7 @@ BuildRequires : rsync
 BuildRequires : util-linux
 BuildRequires : util-linux-dev
 BuildRequires : util-linux-staticdev
+BuildRequires : valgrind
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -117,7 +118,7 @@ staticdev components for the libidn2 package.
 %package staticdev32
 Summary: staticdev32 components for the libidn2 package.
 Group: Default
-Requires: libidn2-dev = %{version}-%{release}
+Requires: libidn2-dev32 = %{version}-%{release}
 
 %description staticdev32
 staticdev32 components for the libidn2 package.
@@ -139,7 +140,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1602712890
+export SOURCE_DATE_EPOCH=1610608460
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -173,16 +174,13 @@ export MAKEFLAGS=%{?_smp_mflags}
 # export CCACHE_SLOPPINESS=pch_defines,locale,time_macros
 export CCACHE_DISABLE=1
 ## altflags_pgo end
-##
-%global _lto_cflags 1
-##
 export CFLAGS="${CFLAGS_GENERATE}"
 export CXXFLAGS="${CXXFLAGS_GENERATE}"
 export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
  %configure --enable-shared --enable-static --disable-doc --disable-gcc-warnings --disable-rpath --disable-silent-rules
-find . -type f -name 'Makefile' -exec sed -i 's:-lunistring\b:-Wl,--whole-archive,--as-needed,/usr/lib64/libunistring.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \; 
+find . -type f -name 'Makefile' -exec sed -i 's:-lunistring\b:-Wl,--whole-archive,--as-needed,/usr/lib64/libunistring.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
 make  %{?_smp_mflags} V=1 VERBOSE=1
 
 make -j1 check V=1 VERBOSE=1 || :
@@ -193,16 +191,16 @@ export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
 %configure --enable-shared --enable-static --disable-doc --disable-gcc-warnings --disable-rpath --disable-silent-rules
-find . -type f -name 'Makefile' -exec sed -i 's:-lunistring\b:-Wl,--whole-archive,--as-needed,/usr/lib64/libunistring.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \; 
+find . -type f -name 'Makefile' -exec sed -i 's:-lunistring\b:-Wl,--whole-archive,--as-needed,/usr/lib64/libunistring.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
 make  %{?_smp_mflags} V=1 VERBOSE=1
 
 pushd ../build32/
 ## build_prepend content
 ./bootstrap
 ## build_prepend end
-export CFLAGS="-g -O2 -fuse-linker-plugin -pipe"
-export CXXFLAGS="-g -O2 -fuse-linker-plugin -fvisibility-inlines-hidden -pipe"
-export LDFLAGS="-g -O2 -fuse-linker-plugin -pipe"
+export CFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -pipe -fPIC -m32 -mstackrealign -march=native -mtune=native"
+export CXXFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -fvisibility-inlines-hidden -pipe -fPIC -m32 -mstackrealign -march=native -mtune=native"
+export LDFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -pipe -fPIC -m32 -mstackrealign -march=native -mtune=native"
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -217,7 +215,7 @@ make  %{?_smp_mflags}  VERBOSE=1 V=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1602712890
+export SOURCE_DATE_EPOCH=1610608460
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

@@ -1,3 +1,13 @@
+Configure miss: whether the compiler is clang
+Configure miss: compiler option needed when checking for declarations
+Configure miss: whether the compiler produces multi-arch binaries
 Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
+Configure miss: whether the compiler is clang
+Configure miss: compiler option needed when checking for declarations
+Configure miss: whether the compiler produces multi-arch binaries
 Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
+Configure miss: whether the compiler is clang
+Configure miss: compiler option needed when checking for declarations
+Configure miss: whether the compiler produces multi-arch binaries
+Configure miss: whether valgrind works on executables produced by the compiler
 Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
